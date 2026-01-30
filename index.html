@@ -1,3 +1,16 @@
-<button onclick="fetch('event.php?action=press')">
-  Activar en Minecraft
+<button onclick="sendToMinecraft()">
+  Aplicar cambios en Minecraft
 </button>
+
+<script>
+function sendToMinecraft() {
+  fetch("https://minecraft-developer.vercel.app.firebaseio.com/event.json", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "apply_hud",
+      time: Date.now()
+    })
+  });
+}
+</script>
