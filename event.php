@@ -1,16 +1,10 @@
 <?php
-header("Content-Type: application/json");
+session_start();
 
-$data = json_decode(file_get_contents("php://input"), true);
-
-if (!$data) {
-  echo json_encode(["error" => "No llegaron datos"]);
+if (isset($_GET["action"])) {
+  $_SESSION["last_event"] = time();
+  echo "ok";
   exit;
 }
 
-file_put_contents("event.json", json_encode([
-  "action" => $data["action"] ?? "none",
-  "time" => time()
-]));
-
-echo json_encode(["status" => "ok"]);
+echo $_SESSION["last_event"] ?? 0;
